@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Azan timing</title>
+</head>
+
+<body>
+    <h1> Azan Timing App </h1>
+    <form onsubmit="onClick(); return false">
+        <label for="cityName">Enter City Name:</label>
+        <input type="text" id="cityName"><br>
+        <label for="cityName">Enter Country Name:</label>
+        <input type="text" id="countryName"><br>
+        <button type="submit">Show</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        let cityName = document.querySelector("#cityName").value
+        let countryName = document.querySelector("#countryName").value
+        let result = document.querySelector("#result")
+
+        function onClick() { //https://api.aladhan.com/v1/timingsByCity?city=${cityName}&country=${countryName}
+            axios.get(`https://api.aladhan.com/v1/timingsByCity?city=karachi&country=Pakistan`).then(function (response) {
+                // document.createElement("p")
+                let time = response.data.timings
+                result.innerHTML = `Asr: ${time.Asr}<br/>`
+                // handle success
+                console.log(response.data);
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        }
+
+    </script>
+</body>
+
+</html>
